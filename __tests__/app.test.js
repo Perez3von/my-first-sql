@@ -1,6 +1,8 @@
 require('dotenv').config();
 
 const { execSync } = require('child_process');
+const exp = require('constants');
+const { send } = require('process');
 
 const fakeRequest = require('supertest');
 const app = require('../lib/app');
@@ -27,7 +29,7 @@ describe('app routes', () => {
     afterAll(done => {
       return client.end(done);
     });
-//-------------------------------------------------------------------------------------------
+    //-------------------------------------------------------------------------------------------
     test('returns people', async() => {
 
       const expectation = [
@@ -59,7 +61,7 @@ describe('app routes', () => {
 
       expect(data.body).toEqual(expectation);
     });
-//-------------------------------------------------------------------------------------------
+    //-------------------------------------------------------------------------------------------
     
     test('returns by id', async() => {
 
@@ -78,11 +80,47 @@ describe('app routes', () => {
 
       expect(data.body).toEqual(expectation);
     });
-//-------------------------------------------------------------------------------------------
+    //-------------------------------------------------------------------------------------------
+    test('creates person with post', async() => {
+
+      const person = { 
+        name: 'Miya',
+        cool_factor: 98,
+        loves_music: true
+      }
+  ;
+
+      const data = await fakeRequest(app)
+        .post('/people')
+        .send(person)
+        .expect(200)
+        .expect('Content-Type', /json/);
+
+      expect(data.body.name).toEqual(person.name);
+      expect(data.body.id).toBeGreaterThan(0);
+    });
+    //-------------------------------------------------------------------------------------------
+    test('PUT ', async() => {
+
+      const person = { 
+        name: 'Jerry',
+        cool_factor: 33,
+        loves_music: false
+      };
+
+      const data = await fakeRequest(app)
+        .put('/people/1')
+        .send(person)
+        .expect(200)
+        .expect('Content-Type', /json/);
+
+      expect(data.body.name).toEqual(person.name);
+      expect(data.body.cool_factor).toEqual(person.cool_factor);
+      expect(data.body.loves_music).toEqual(person.loves_music);
 
 
-
-
+    });
+    //-------------------------------------------------------------------------------------------
   });
 });
 
