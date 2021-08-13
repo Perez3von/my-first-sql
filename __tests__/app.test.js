@@ -27,36 +27,68 @@ describe('app routes', () => {
     afterAll(done => {
       return client.end(done);
     });
-
-    test('returns animals', async() => {
+//-------------------------------------------------------------------------------------------
+    test('returns people', async() => {
 
       const expectation = [
         {
-          'id': 1,
-          'name': 'bessie',
-          'cool_factor': 3,
-          'owner_id': 1
+          id:1,
+          name: 'Evon',
+          cool_factor: -100,
+          loves_music: false
         },
         {
-          'id': 2,
-          'name': 'jumpy',
-          'cool_factor': 4,
-          'owner_id': 1
+          id:2,
+          name: 'Justin',
+          cool_factor: 10,
+          loves_music: true
         },
         {
-          'id': 3,
-          'name': 'spot',
-          'cool_factor': 10,
-          'owner_id': 1
+          id:3,
+          name: 'Juli',
+          cool_factor: 100,
+          loves_music: true,
+      
         }
       ];
 
       const data = await fakeRequest(app)
-        .get('/animals')
+        .get('/people')
         .expect('Content-Type', /json/)
         .expect(200);
 
       expect(data.body).toEqual(expectation);
     });
+//-------------------------------------------------------------------------------------------
+    
+    test('returns by id', async() => {
+
+      const expectation = { 
+        id:1,
+        name: 'Evon',
+        cool_factor: -100,
+        loves_music: false
+      }
+      ;
+
+      const data = await fakeRequest(app)
+        .get('/people/1')
+        .expect('Content-Type', /json/)
+        .expect(200);
+
+      expect(data.body).toEqual(expectation);
+    });
+//-------------------------------------------------------------------------------------------
+
+
+
+
   });
 });
+
+
+
+
+
+
+
