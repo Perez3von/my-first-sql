@@ -16,12 +16,19 @@ async function run() {
                     id SERIAL PRIMARY KEY,
                     email VARCHAR(256) NOT NULL,
                     hash VARCHAR(512) NOT NULL
-                );           
+                ); 
+
+                CREATE TABLE colors (
+                  id SERIAL PRIMARY KEY,
+                  color VARCHAR(512) NOT NULL
+              );     
+
                 CREATE TABLE people (
                     id SERIAL PRIMARY KEY NOT NULL,
                     name VARCHAR(512) NOT NULL,
                     cool_factor INTEGER NOT NULL,
-                    loves_music BOOLEAN NOT NULL 
+                    loves_music BOOLEAN NOT NULL,
+                    shirt_color INTEGER REFERENCES colors(id)
             );
         `);
 

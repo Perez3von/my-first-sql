@@ -37,20 +37,22 @@ describe('app routes', () => {
           id:1,
           name: 'Evon',
           cool_factor: -100,
-          loves_music: false
+          loves_music: false,
+          color:'blue'
         },
         {
           id:2,
           name: 'Justin',
           cool_factor: 10,
-          loves_music: true
+          loves_music: true,
+          color:'red'
         },
         {
           id:3,
           name: 'Juli',
           cool_factor: 100,
           loves_music: true,
-      
+          color:'red'
         }
       ];
 
@@ -69,7 +71,8 @@ describe('app routes', () => {
         id:1,
         name: 'Evon',
         cool_factor: -100,
-        loves_music: false
+        loves_music: false,
+        color:'blue'
       }
       ;
 
@@ -86,7 +89,8 @@ describe('app routes', () => {
       const person = { 
         name: 'Miya',
         cool_factor: 98,
-        loves_music: true
+        loves_music: true,
+        shirt_color:3
       }
   ;
 
@@ -97,6 +101,7 @@ describe('app routes', () => {
         .expect('Content-Type', /json/);
 
       expect(data.body.name).toEqual(person.name);
+      expect(data.body.shirt_color).toEqual(person.shirt_color);
       expect(data.body.id).toBeGreaterThan(0);
     });
     //-------------------------------------------------------------------------------------------
@@ -105,7 +110,8 @@ describe('app routes', () => {
       const person = { 
         name: 'Jerry',
         cool_factor: 33,
-        loves_music: false
+        loves_music: false,
+        shirt_color:1
       };
 
       const data = await fakeRequest(app)
@@ -117,6 +123,7 @@ describe('app routes', () => {
       expect(data.body.name).toEqual(person.name);
       expect(data.body.cool_factor).toEqual(person.cool_factor);
       expect(data.body.loves_music).toEqual(person.loves_music);
+      expect(data.body.shirt_color).toEqual(person.shirt_color);
 
 
     });
