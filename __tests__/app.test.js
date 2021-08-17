@@ -29,6 +29,37 @@ describe('app routes', () => {
     afterAll(done => {
       return client.end(done);
     });
+
+    //------------------------------------------------------------------------------------------
+
+    test('returns colors', async() => {
+
+      const expectation = [
+        {
+          id:1,
+          color:'blue'
+          
+        },
+      
+        { id:2,
+          color:'red'
+        },
+      
+        {
+          id:3,
+          color:'orange'
+        }
+          
+      
+      ];
+
+      const data = await fakeRequest(app)
+        .get('/colors')
+        .expect('Content-Type', /json/)
+        .expect(200);
+
+      expect(data.body).toEqual(expectation);
+    });
     //-------------------------------------------------------------------------------------------
     test('returns people', async() => {
 
