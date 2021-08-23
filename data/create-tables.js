@@ -28,7 +28,7 @@ async function run() {
                     name VARCHAR(512) NOT NULL,
                     cool_factor INTEGER NOT NULL,
                     loves_music BOOLEAN NOT NULL,
-                    shirt_color INTEGER REFERENCES colors(id)
+                    shirt_color INTEGER NOT NULL REFERENCES colors(id) 
             );
         `);
 
